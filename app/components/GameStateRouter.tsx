@@ -21,15 +21,9 @@ export function GameStateRouter({ children }: { children: React.ReactNode }) {
         dispatch({ type: 'START_GAME', payload: serverState });
       }
 
-      // If game hasn't started, ensure we're on home page
+      // If game hasn't started and not on home page, redirect to home
       if (!serverState.isStarted && window.location.pathname !== '/') {
         router.push('/');
-        return;
-      }
-
-      // If game has started, move to game page
-      if (serverState.isStarted && window.location.pathname === '/') {
-        router.push('/game');
         return;
       }
 
