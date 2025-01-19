@@ -7,17 +7,25 @@ export function TipRequestButton() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [attempts, setAttempts] = useState(0);
   const [canClick, setCanClick] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
+  const [isHidden, setIsHidden] = useState(true);
 
   // Reset button state when stage changes
   useEffect(() => {
     setAttempts(0);
     setCanClick(false);
-    setIsHidden(false);
+    setIsHidden(true);
+    
     // Reset position to bottom center
     const x = (window.innerWidth - 200) / 2;
     const y = window.innerHeight - 100;
     setPosition({ x, y });
+
+    // Show button after 30 seconds
+    const timer = setTimeout(() => {
+      setIsHidden(false);
+    }, 30000);
+
+    return () => clearTimeout(timer); // Cleanup timer
   }, [state.currentStage]);
 
   // Set initial position at bottom center

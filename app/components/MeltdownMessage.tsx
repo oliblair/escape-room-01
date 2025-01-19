@@ -40,7 +40,7 @@ export function MeltdownMessage() {
     "22:54 Backup Failed",
     "22:55 AI Safety Backup taking control of mainframe",
     "22:55 WARNING: Toto detected in the Red Room. Starting Emergency flush out procedure. Toxic Gas released in Red Room",
-    "23:07 All humans incapacitated.Initialising Robodog clean-up protocol",
+    "23:07 All humans incapacitated. Initialising Robodog clean-up protocol",
     "23:09 Error: AI Central server has been corrupted. Re-training AI based on current data.",
     "Reason for Data Corruption: Drunk human mentioned Toto",
     "Facility name: Planetary Operational Research Network facility (PORN)",

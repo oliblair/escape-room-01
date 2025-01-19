@@ -81,7 +81,7 @@ export function CodeInput() {
               type="text"
               value={currentInput}
               onChange={(e) => setCurrentInput(e.target.value)}
-              placeholder="Enter code..."
+              placeholder="Enter 2 Character Code..."
               className="bg-black border border-green-500 px-2 py-1 text-green-500 w-full"
               maxLength={2}
             />

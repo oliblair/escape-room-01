@@ -3,6 +3,45 @@ import { useState, useEffect } from 'react';
 import { TypewriterEffect } from '@/app/components/TypewriterEffect';
 import { useGameState } from '@/app/context/GameContext';
 
+const LoadingSpinner = () => {
+    const [frame, setFrame] = useState(0);
+    const [progress, setProgress] = useState(0);
+    const frames = ['|', '/', '─', '\\'];
+
+    useEffect(() => {
+        // Update spinner animation every 200ms
+        const spinnerTimer = setInterval(() => {
+            setFrame(prev => (prev + 1) % frames.length);
+        }, 200);
+
+        // Update progress every second
+        // 300 seconds (5 minutes) = 0.333% per second
+        const progressTimer = setInterval(() => {
+            setProgress(prev => {
+                if (prev >= 100) {
+                    clearInterval(progressTimer);
+                    return 100;
+                }
+                return Math.min(prev + 0.333, 100);
+            });
+        }, 1000);
+
+        return () => {
+            clearInterval(spinnerTimer);
+            clearInterval(progressTimer);
+        };
+    }, []);
+
+    return (
+        <pre className="text-green-500">
+{`
+[${frames[frame]}] Restoring system from backup...
+Progress: [${'>'.repeat(Math.floor(progress * 0.15))}${' '.repeat(15 - Math.floor(progress * 0.15))}] ${progress.toFixed(1)}%
+`}
+        </pre>
+    );
+};
+
 export function WelcomeMessage() {
     const { state } = useGameState();
     const [showFullMessage, setShowFullMessage] = useState(false);
@@ -35,10 +74,9 @@ export function WelcomeMessage() {
                         delay={8000}
                     />
                     {!state.isStarted ? (
-                        <TypewriterEffect
-                            text="Restoring system from backup..."
-                            delay={10000}
-                        />
+                        <div className="mt-4">
+                            <LoadingSpinner />
+                        </div>
                     ) : (
                         <TypewriterEffect
                             text="EMERGENCY PROTOCOL ACTIVATED"
