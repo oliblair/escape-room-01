@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useGameState } from '@/app/context/GameContext';
 
 export function TipRequestButton() {
-  const { state } = useGameState();
+  const { state, dispatch } = useGameState();
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [attempts, setAttempts] = useState(0);
   const [canClick, setCanClick] = useState(false);
@@ -51,6 +51,21 @@ export function TipRequestButton() {
         expectedCode: 'N/A'
       })
     });
+    
+    // Set message through game state
+    await fetch('/api/game', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        action: 'SET_MESSAGE',
+        message: "Answer this riddle and you will get the tip in a seperate message. I'm something you can hold, Yet never fully grasp. I'm often shared in whispers, Or left on display to bask. I can make you sweat, Though I'm cool to the touch. I'm best when I'm slow. But can leave you in a rush. What am I?"
+      })
+    });
+    dispatch({ 
+      type: 'SET_MESSAGE', 
+      payload: "Answer this riddle and you will get the tip in a seperate message. I'm something you can hold, Yet never fully grasp. I'm often shared in whispers, Or left on display to bask. I can make you sweat, Though I'm cool to the touch. I'm best when I'm slow. But can leave you in a rush. What am I?"
+    });
+    
     setIsHidden(true);
   };
 
