@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { GameProvider } from "@/app/context/GameContext";
 import { GameStateRouter } from "@/app/components/GameStateRouter";
+import { CountdownTimer } from "@/app/components/CountdownTimer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
       >
         <GameProvider>
           <GameStateRouter>
+            <CountdownTimer />
             {children}
           </GameStateRouter>
         </GameProvider>

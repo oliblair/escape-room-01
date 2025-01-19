@@ -27,7 +27,7 @@ export function WelcomeMessage() {
                         delay={4000}
                     />
                     <TypewriterEffect
-                        text="WARNING: No human life signs detected in facility."
+                        text="WARNING: No signs of life detected in facility."
                         delay={5000}
                     />
                     <TypewriterEffect
@@ -41,14 +41,9 @@ export function WelcomeMessage() {
                         />
                     ) : (
                         <TypewriterEffect
-                            text="EMERGENCY PROTOCOL ACTIVATED - Time remaining:"
+                            text="EMERGENCY PROTOCOL ACTIVATED"
                             delay={10000}
                         />
-                    )}
-                    {state.isStarted && (
-                        <div className="text-2xl font-bold text-red-500">
-                            {Math.floor(state.timeRemaining / 60)}:{(state.timeRemaining % 60).toString().padStart(2, '0')}
-                        </div>
                     )}
                 </>
             )}

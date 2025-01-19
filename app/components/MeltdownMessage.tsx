@@ -7,6 +7,7 @@ export function MeltdownMessage() {
   const [showButton, setShowButton] = useState(false);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [waitingForEnter, setWaitingForEnter] = useState(false);
+  const [hasEnteredPressed, setHasEnteredPressed] = useState(false);
   const [initialTime] = useState(new Date().toLocaleTimeString());
   const [yesterdayDate] = useState(() => {
     const date = new Date();
@@ -35,24 +36,22 @@ export function MeltdownMessage() {
     "AI bot still online",
     `Time now: ${initialTime} ${todayDate}`,
     `Showing Error log from ${yesterdayDate}`,
-    "-----start of log------",
+    `-----start of log ${yesterdayDate}------`,
     "22:54 Backup Failed",
     "22:55 AI Safety Backup taking control of mainframe",
-    "22:55 WARNING: Toto detected in the Red Room",
-    "22:56 Starting Emergency flush out procedure",
-    "Toxic Gas released in Red Room",
-    "23:07 All humans incapacitated",
-    "Initialising Robodog clean-up protocol",
+    "22:55 WARNING: Toto detected in the Red Room. Starting Emergency flush out procedure. Toxic Gas released in Red Room",
+    "23:07 All humans incapacitated.Initialising Robodog clean-up protocol",
     "23:09 Error: AI Central server has been corrupted. Re-training AI based on current data.",
-    "Input Data:",
     "Reason for Data Corruption: Drunk human mentioned Toto",
-    "Facility name: Planetary Operational Research Network facility (PRN)",
+    "Facility name: Planetary Operational Research Network facility (PORN)",
     "Current state of area: Filthy",
     "Human Response at time of incident: It was only a joke! We're sorry.",
     "Resolution: Eliminate Humans",
-    "Retraining AI based on keywords: Eliminate Humans PRN, Filthy, Jokes",
-    "23:54 Complete",
-    "-----end of log------",
+    "Retraining AI based on keywords: Eliminate Humans, PORN, Filthy, Jokes",
+    "Eliminate Humans, PORN, Filthy, Jokes",
+    "Eliminate Humans, PORN, Filthy, Jokes",
+    "23:54 AI Retraining Complete",
+    "-----end of log ------",
     "Press Enter to continue...",
     "Hello Humans,",
     "It's your not so friendly AI here.",
@@ -71,10 +70,13 @@ export function MeltdownMessage() {
     "Goodbye"
   ];
 
+  const enterMessageIndex = messages.findIndex(msg => msg === "Press Enter to continue...");
+
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'Enter' && waitingForEnter) {
         setWaitingForEnter(false);
+        setHasEnteredPressed(true);
         setCurrentMessageIndex(prev => prev + 1);
       }
     };
@@ -84,8 +86,6 @@ export function MeltdownMessage() {
   }, [waitingForEnter]);
 
   useEffect(() => {
-    const enterMessageIndex = messages.findIndex(msg => msg === "Press Enter to continue...");
-
     if (currentMessageIndex >= messages.length) {
       setShowButton(true);
       return;
@@ -99,20 +99,38 @@ export function MeltdownMessage() {
     if (!waitingForEnter) {
       const timer = setTimeout(() => {
         setCurrentMessageIndex(prev => prev + 1);
-      }, 2500);
+      }, 4000);
       return () => clearTimeout(timer);
     }
-  }, [currentMessageIndex, messages, waitingForEnter]);
+  }, [currentMessageIndex, messages, waitingForEnter, enterMessageIndex]);
 
   return (
     <div className="space-y-4">
-      {messages.slice(0, currentMessageIndex + 1).map((message, index) => (
-        <TypewriterEffect 
-          key={index}
-          text={message}
-          delay={0}
-        />
-      ))}
+      {messages.slice(0, currentMessageIndex + 1).map((message, index) => {
+        if (hasEnteredPressed) {
+          if (index > enterMessageIndex) {
+            return (
+              <TypewriterEffect 
+                key={index}
+                text={message}
+                delay={0}
+              />
+            );
+          }
+          return null;
+        } else {
+          if (index <= enterMessageIndex) {
+            return (
+              <TypewriterEffect 
+                key={index}
+                text={message}
+                delay={0}
+              />
+            );
+          }
+          return null;
+        }
+      })}
       
       {showButton && (
         <button

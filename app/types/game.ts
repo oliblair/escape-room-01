@@ -7,7 +7,7 @@ export interface GameState {
 }
 
 type GamePayload = {
-  'START_GAME': GameState | string[];
+  'START_GAME': GameState;
   'SET_CODE': string[];
   'CHECK_CODE': string;
   'NEXT_STAGE': number;

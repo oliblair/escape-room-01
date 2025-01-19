@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useGameState } from '@/app/context/GameContext';
+import { GameState } from '@/app/types/game';
 
 interface LogEntry {
     timestamp: string;
@@ -34,15 +35,25 @@ export function AdminControls() {
 
   const startGame = async () => {
     const codes = encryptionCode.split('-');
+    const gameStatePayload: GameState = {
+      isStarted: true,
+      encryptionCode: codes,
+      timeRemaining: state.timeRemaining,
+      currentStage: 0,
+      isComplete: false
+    };
+
     await fetch('/api/game', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         action: 'START_GAME',
-        encryptionCode: codes
+        encryptionCode: codes,
+        timeRemaining: state.timeRemaining
       })
     });
-    dispatch({ type: 'START_GAME', payload: codes });
+    
+    dispatch({ type: 'START_GAME', payload: gameStatePayload });
   };
 
   const resetGame = async () => {
@@ -82,6 +93,22 @@ export function AdminControls() {
                 className="ml-2 bg-black border border-green-500 px-2 py-1 w-full"
               />
             </label>
+            
+            <div className="space-y-2">
+              <label className="block">
+                Countdown Time (minutes):
+                <input
+                  type="number"
+                  value={Math.floor(state.timeRemaining / 60)}
+                  onChange={(e) => dispatch({ 
+                    type: 'UPDATE_TIME', 
+                    payload: Math.max(1, parseInt(e.target.value)) * 60 
+                  })}
+                  className="ml-2 bg-black border border-green-500 px-2 py-1 w-24"
+                  min="1"
+                />
+              </label>
+            </div>
             
             <div className="flex gap-2">
               <button

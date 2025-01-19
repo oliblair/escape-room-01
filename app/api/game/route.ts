@@ -24,7 +24,7 @@ export async function POST(request: Request) {
           isStarted: true,
           encryptionCode: data.encryptionCode,
           currentStage: 0,
-          timeRemaining: 3600,
+          timeRemaining: data.timeRemaining || 3600,
         };
       } else {
         gameState.isStarted = true;
