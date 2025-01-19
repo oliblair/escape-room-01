@@ -8,13 +8,33 @@ export function MeltdownMessage() {
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [waitingForEnter, setWaitingForEnter] = useState(false);
   const [initialTime] = useState(new Date().toLocaleTimeString());
+  const [yesterdayDate] = useState(() => {
+    const date = new Date();
+    date.setDate(date.getDate());
+    return date.toLocaleDateString('en-US', { 
+      weekday: 'long',
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
+    });
+  });
+  const [todayDate] = useState(() => {
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+    return date.toLocaleDateString('en-US', { 
+      weekday: 'long',
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
+    });
+  });
   const router = useRouter();
 
   const messages = [
     "Mainframe corrupted, safety systems down",
     "AI bot still online",
-    `Time now: ${initialTime}`,
-    "Showing Error log from yesterday",
+    `Time now: ${initialTime} ${todayDate}`,
+    `Showing Error log from ${yesterdayDate}`,
     "-----start of log------",
     "22:54 Backup Failed",
     "22:55 AI Safety Backup taking control of mainframe",
