@@ -40,7 +40,8 @@ export function AdminControls() {
       encryptionCode: codes,
       timeRemaining: state.timeRemaining,
       currentStage: 0,
-      isComplete: false
+      isComplete: false,
+      adminMessage: null
     };
 
     await fetch('/api/game', {
@@ -170,6 +171,37 @@ export function AdminControls() {
                 <span>{entry.success ? '✓' : '✗'}</span>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div className="border border-green-500/30 rounded p-4">
+          <h2 className="text-lg font-bold mb-2">Send Message to Players</h2>
+          <div className="space-y-2">
+            <textarea
+              className="w-full h-24 bg-black border border-green-500 p-2 text-green-500 resize-none"
+              placeholder="Type a message to send to players..."
+              id="adminMessage"
+            />
+            <button
+              onClick={() => {
+                const textarea = document.getElementById('adminMessage') as HTMLTextAreaElement;
+                if (!textarea) return;
+                
+                fetch('/api/game', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ 
+                    action: 'SET_MESSAGE',
+                    message: textarea.value || null
+                  })
+                });
+                dispatch({ type: 'SET_MESSAGE', payload: textarea.value });
+                textarea.value = '';
+              }}
+              className="bg-green-500 text-black px-4 py-2 rounded hover:bg-green-400 w-full"
+            >
+              Send Message
+            </button>
           </div>
         </div>
       </div>

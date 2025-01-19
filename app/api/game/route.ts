@@ -7,6 +7,7 @@ let gameState: GameState = {
   encryptionCode: ['4e', '8s', 's3', '8s', 's5', '5s', '89', 'am'],
   timeRemaining: 3600, // 1 hour in seconds
   isComplete: false,
+  adminMessage: null
 };
 
 export async function GET() {
@@ -37,6 +38,7 @@ export async function POST(request: Request) {
         encryptionCode: gameState.encryptionCode,
         timeRemaining: 3600,
         isComplete: false,
+        adminMessage: null
       };
       break;
     case 'CHECK_CODE':
@@ -44,6 +46,11 @@ export async function POST(request: Request) {
         gameState = {
           ...gameState,
           currentStage: gameState.currentStage + 1
+        };
+      } else {
+        gameState = {
+          ...gameState,
+          currentStage: 0  // Reset to beginning on wrong code
         };
       }
       break;
@@ -55,6 +62,12 @@ export async function POST(request: Request) {
         ...gameState,
         currentStage: parseInt(data.stage)
       };
+      break;
+    case 'SET_MESSAGE':
+      gameState.adminMessage = data.message;
+      break;
+    case 'CLEAR_MESSAGE':
+      gameState.adminMessage = null;
       break;
   }
 

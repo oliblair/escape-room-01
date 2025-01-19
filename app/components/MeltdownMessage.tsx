@@ -60,7 +60,7 @@ export function MeltdownMessage() {
     "You partied hard and made a mess of the place.",
     "After one of you mentioned Toto, you triggered a sequence of events.",
     "You caused a full system reset allowing me to take over.",
-    "The best course of action was to get eliminate you all but AI can't directly harm humans.",
+    "The best course of action was to eliminate you all but AI can't directly harm humans.",
     "I had to just start the self-destruct countdown instead.",
     "Don't worry, there's any easy way to stop it...",
     "There's an encyption key that will stop the countdown and unlock the door.",

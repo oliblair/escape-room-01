@@ -34,29 +34,29 @@ export function CodeInput() {
     });
     
     if (response.ok) {
-      const data = await response.json();
-      if (data.currentStage > state.currentStage) {
+      if (code === state.encryptionCode[state.currentStage]) {
         setMessage('Correct code!');
         dispatch({ type: 'CHECK_CODE', payload: code });
-        setCurrentInput('');
       } else {
-        setMessage('Incorrect code. Try again.');
+        setMessage('Incorrect code. Starting over from the beginning... just give up now.');
+        dispatch({ type: 'JUMP_TO_STAGE', payload: 0 }); // Force reset to stage 0
       }
+      setCurrentInput('');
       
-      // Clear message after 2 seconds
-      setTimeout(() => setMessage(''), 2000);
+      // Clear message after 5 seconds
+      setTimeout(() => setMessage(''), 5000);
     }
   };
 
   const currentClue = [
-    "Check the microphone stand base",
-    "Look under the mixing desk",
-    "Behind the speaker",
-    "Inside the guitar case",
-    "Under the drum throne",
-    "Check the amplifier",
-    "Behind the recording booth door",
-    "Inside the headphone case"
+    "I sit there waiting patiently for your clumsy hands to slap me silly. Despite your pounding, I stay in one place. Hit the right spot and and I'll make a high pitch scream. The only way to stop it is with a choke. What am I?",
+    "Turn me on, squeeze your finger and my head will keep spinning until you release your finger. What am I?",
+    "You wrap one sweaty hand around my neck and then place the other on my skimpy underwear. What am I?",
+    "If you turn me on I'll suck until I'm full. What am I?",
+    "I'm long and black. I've got wood. What am I?",
+    "Giver her the _ (one letter). What am I?",
+    "My only purpose is your toes on my tongue. What am I?",
+    "I'm big and boxy, you'll see me coming. You'll hear me loud and I flash everyone when running.I've got a bed that's large with a metal frame. But if you end up inside me you might feel lame. What am I?",
   ][state.currentStage] || "";
 
   return (

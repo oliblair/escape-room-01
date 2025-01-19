@@ -4,6 +4,7 @@ import "./globals.css";
 import { GameProvider } from "@/app/context/GameContext";
 import { GameStateRouter } from "@/app/components/GameStateRouter";
 import { CountdownTimer } from "@/app/components/CountdownTimer";
+import { UserMessage } from "@/app/components/UserMessage";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <GameProvider>
           <GameStateRouter>
             <CountdownTimer />
+            <UserMessage />
             {children}
           </GameStateRouter>
         </GameProvider>

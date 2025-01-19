@@ -4,6 +4,7 @@ export interface GameState {
   encryptionCode: string[];
   timeRemaining: number;
   isComplete: boolean;
+  adminMessage: string | null;
 }
 
 type GamePayload = {
@@ -14,6 +15,8 @@ type GamePayload = {
   'UPDATE_TIME': number;
   'RESET_GAME': void;
   'JUMP_TO_STAGE': number;
+  'SET_MESSAGE': string | null;
+  'CLEAR_MESSAGE': void;
 }
 
 export interface GameAction {

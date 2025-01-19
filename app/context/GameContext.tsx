@@ -27,13 +27,14 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         encryptionCode: [],
         timeRemaining: 3600,
         isComplete: false,
+        adminMessage: null
       };
     case 'CHECK_CODE':
       return {
         ...state,
         currentStage: state.encryptionCode[state.currentStage] === action.payload
           ? state.currentStage + 1
-          : state.currentStage
+          : 0  // Reset to stage 0 on incorrect attempt
       };
     case 'UPDATE_TIME':
       return { ...state, timeRemaining: action.payload as number };
@@ -42,6 +43,10 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         ...state,
         currentStage: action.payload as number
       };
+    case 'SET_MESSAGE':
+      return { ...state, adminMessage: action.payload as string };
+    case 'CLEAR_MESSAGE':
+      return { ...state, adminMessage: null };
     default:
       return state;
   }
@@ -54,6 +59,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
     encryptionCode: [],
     timeRemaining: 3600,
     isComplete: false,
+    adminMessage: null
   });
 
   useEffect(() => {
