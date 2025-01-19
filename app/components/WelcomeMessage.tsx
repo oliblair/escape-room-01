@@ -45,10 +45,16 @@ Progress: [${'>'.repeat(Math.floor(progress * 0.15))}${' '.repeat(15 - Math.floo
 export function WelcomeMessage() {
     const { state } = useGameState();
     const [showFullMessage, setShowFullMessage] = useState(false);
+    const [showSpinner, setShowSpinner] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(() => setShowFullMessage(true), 1000);
-        return () => clearTimeout(timer);
+        const spinnerTimer = setTimeout(() => setShowSpinner(true), 10000);
+        
+        return () => {
+            clearTimeout(timer);
+            clearTimeout(spinnerTimer);
+        };
     }, []);
 
     return (
@@ -73,11 +79,12 @@ export function WelcomeMessage() {
                         text="Robot Dog Security System: ACTIVE"
                         delay={8000}
                     />
-                    {!state.isStarted ? (
+                    {!state.isStarted && showSpinner && (
                         <div className="mt-4">
                             <LoadingSpinner />
                         </div>
-                    ) : (
+                    )}
+                    {state.isStarted && (
                         <TypewriterEffect
                             text="EMERGENCY PROTOCOL ACTIVATED"
                             delay={10000}
