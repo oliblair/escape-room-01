@@ -27,6 +27,12 @@ export function GameStateRouter({ children }: { children: React.ReactNode }) {
         return;
       }
 
+      // If game has started and we're on home page, go to meltdown
+      if (serverState.isStarted && window.location.pathname === '/') {
+        router.push('/meltdown');
+        return;
+      }
+
       // If game is complete, redirect to victory page
       if (serverState.currentStage >= 8 && window.location.pathname !== '/victory') {
         router.push('/victory');
