@@ -7,6 +7,18 @@ export function TipRequestButton() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [attempts, setAttempts] = useState(0);
   const [canClick, setCanClick] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+
+  // Reset button state when stage changes
+  useEffect(() => {
+    setAttempts(0);
+    setCanClick(false);
+    setIsHidden(false);
+    // Reset position to bottom center
+    const x = (window.innerWidth - 200) / 2;
+    const y = window.innerHeight - 100;
+    setPosition({ x, y });
+  }, [state.currentStage]);
 
   // Set initial position at bottom center
   useEffect(() => {
@@ -16,14 +28,14 @@ export function TipRequestButton() {
   }, []);
 
   const moveButton = () => {
-    if (attempts >= 8) return;
+    if (attempts >= 10) return;
     
     const x = Math.random() * (window.innerWidth - 200);
     const y = Math.random() * (window.innerHeight - 100);
     setPosition({ x, y });
     setAttempts(prev => {
       const newAttempts = prev + 1;
-      if (newAttempts >= 8) setCanClick(true);
+      if (newAttempts >= 10) setCanClick(true);
       return newAttempts;
     });
   };
@@ -39,6 +51,7 @@ export function TipRequestButton() {
         expectedCode: 'N/A'
       })
     });
+    setIsHidden(true);
   };
 
   const getButtonText = () => {
@@ -50,23 +63,27 @@ export function TipRequestButton() {
       case 2:
         return 'Keep it going';
       case 3:
-        return 'Faster';
+        return 'Slowly';
       case 4:
-        return 'Slower';
+        return 'Bit quicker...';
       case 5:
         return 'Struggling to hit the right button?';
       case 6:
         return 'Nearly there...';
       case 7:
-        return 'Closer...';
+        return 'Harder...';
       case 8:
-        return 'Just give me the tip';
+        return 'Almost...';
+      case 9:
+        return 'One more time!';
+      case 10:
+        return 'Phew, I\'m glad that\'s over!';
       default:
         return 'Request Extra Tip';
     }
   };
 
-  if (state.currentStage >= 8) return null;
+  if (state.currentStage >= 8 || isHidden) return null;
 
   return (
     <button
@@ -78,7 +95,7 @@ export function TipRequestButton() {
         top: `${position.y}px`,
         transition: 'all 0.3s ease'
       }}
-      className="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-400"
+      className="bg-black text-green-500 border border-green-500 px-4 py-2 rounded hover:bg-green-500 hover:text-black"
     >
       {getButtonText()}
     </button>
