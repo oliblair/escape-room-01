@@ -37,6 +37,11 @@ function gameReducer(state: GameState, action: GameAction): GameState {
       };
     case 'UPDATE_TIME':
       return { ...state, timeRemaining: action.payload as number };
+    case 'JUMP_TO_STAGE':
+      return {
+        ...state,
+        currentStage: action.payload as number
+      };
     default:
       return state;
   }

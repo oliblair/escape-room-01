@@ -17,7 +17,7 @@ export function GameStateRouter({ children }: { children: React.ReactNode }) {
       const serverState = await response.json();
 
       // Update local state if different from server
-      if (serverState.isStarted !== state.isStarted) {
+      if (serverState.isStarted !== state.isStarted || serverState.currentStage !== state.currentStage) {
         dispatch({ type: 'START_GAME', payload: serverState });
       }
 

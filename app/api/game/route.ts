@@ -50,6 +50,12 @@ export async function POST(request: Request) {
     case 'UPDATE_TIME':
       gameState.timeRemaining = data.timeRemaining;
       break;
+    case 'JUMP_TO_STAGE':
+      gameState = {
+        ...gameState,
+        currentStage: parseInt(data.stage)
+      };
+      break;
   }
 
   return NextResponse.json(gameState);
