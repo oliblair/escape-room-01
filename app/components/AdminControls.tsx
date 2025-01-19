@@ -163,12 +163,18 @@ export function AdminControls() {
         <div className="border border-green-500/30 rounded p-4 max-h-64 overflow-y-auto">
           <h2 className="text-lg font-bold mb-2">Attempt Log</h2>
           <div className="space-y-2 text-sm">
-            {logEntries.map((entry, i) => (
-              <div key={i} className={`grid grid-cols-4 gap-4 ${entry.success ? 'text-green-500' : 'text-red-500'}`}>
+            {[...logEntries].reverse().map((entry, i) => (
+              <div key={i} className={`grid grid-cols-4 gap-4 ${
+                entry.attempt === 'TIP_REQUEST' 
+                  ? 'text-yellow-500' 
+                  : entry.success 
+                    ? 'text-green-500' 
+                    : 'text-red-500'
+              }`}>
                 <span>{new Date(entry.timestamp).toLocaleTimeString()}</span>
                 <span>Stage {entry.stage}: {entry.attempt}</span>
                 <span>Expected: {entry.expectedCode}</span>
-                <span>{entry.success ? '✓' : '✗'}</span>
+                <span>{entry.success ? '✓' : entry.attempt === 'TIP_REQUEST' ? '?' : '✗'}</span>
               </div>
             ))}
           </div>
