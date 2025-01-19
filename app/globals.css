@@ -5,6 +5,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --terminal-green: #00ff00;
+  --terminal-black: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,4 +20,13 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--terminal-black);
+  color: var(--terminal-green);
+  font-family: 'Courier New', monospace;
+}
+
+@keyframes cursor-blink {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
 }

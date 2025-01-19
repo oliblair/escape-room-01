@@ -1,12 +1,12 @@
 import { Terminal } from '@/app/components/Terminal';
-import { WelcomeMessage } from '@/app/components/WelcomeMessage';
+import { CodeInput } from '@/app/components/CodeInput';
 
-export default function Home() {
+export default function GamePage() {
   return (
     <div className="min-h-screen bg-black p-4">
       <Terminal>
-        <WelcomeMessage />
+        <CodeInput />
       </Terminal>
     </div>
   );
-}
+} 
