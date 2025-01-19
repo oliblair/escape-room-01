@@ -1,5 +1,6 @@
 import { Terminal } from '@/app/components/Terminal';
 import { CodeInput } from '@/app/components/CodeInput';
+import { TipRequestButton } from '@/app/components/TipRequestButton';
 
 export default function GamePage() {
   return (
@@ -7,6 +8,7 @@ export default function GamePage() {
       <Terminal>
         <CodeInput />
       </Terminal>
+      <TipRequestButton />
     </div>
   );
 } 
