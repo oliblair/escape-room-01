@@ -33,8 +33,8 @@ export function GameStateRouter({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      // If game is complete, redirect to victory page
-      if (serverState.currentStage >= 8 && window.location.pathname !== '/victory') {
+      // If game is complete and not on victory page, redirect to victory
+      if (serverState.currentStage >= 8 && window.location.pathname !== '/victory' && window.location.pathname !== '/meltdown') {
         router.push('/victory');
       }
     };

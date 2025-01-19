@@ -35,7 +35,7 @@ export function MeltdownMessage() {
     "Mainframe corrupted, safety systems down",
     "AI bot still online",
     `Time now: ${initialTime} ${todayDate}`,
-    `Showing Error log from ${yesterdayDate}`,
+    `Showing Error log from last night: ${yesterdayDate}`,
     `-----start of log ${yesterdayDate}------`,
     "22:54 Backup Failed",
     "22:55 AI Safety Backup taking control of mainframe",
@@ -60,13 +60,13 @@ export function MeltdownMessage() {
     "You partied hard and made a mess of the place.",
     "After one of you mentioned Toto, you triggered a sequence of events.",
     "You caused a full system reset allowing me to take over.",
-    "The best course of action was to get eliminate you all but as AI can't directly harm humans.",
+    "The best course of action was to get eliminate you all but AI can't directly harm humans.",
     "I had to just start the self-destruct countdown instead.",
     "Don't worry, there's any easy way to stop it...",
     "There's an encyption key that will stop the countdown and unlock the door.",
     "Each part of the encrpytion key is written in a physical location in the Red Room.",
     "Lucky for you I can't get to it to change it",
-    "Unlucky for you, I can change the clues to the location using my to make it impossible for you to leave before the facility meltdown",
+    "Unlucky for you, I can change the clues to the location making it impossible for you to leave before the meltdown",
     "Goodbye"
   ];
 
@@ -99,7 +99,7 @@ export function MeltdownMessage() {
     if (!waitingForEnter) {
       const timer = setTimeout(() => {
         setCurrentMessageIndex(prev => prev + 1);
-      }, 4000);
+      }, 3500);
       return () => clearTimeout(timer);
     }
   }, [currentMessageIndex, messages, waitingForEnter, enterMessageIndex]);
