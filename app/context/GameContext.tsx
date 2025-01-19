@@ -36,7 +36,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
           : state.currentStage
       };
     case 'UPDATE_TIME':
-      return { ...state, timeRemaining: action.payload };
+      return { ...state, timeRemaining: action.payload as number };
     default:
       return state;
   }
