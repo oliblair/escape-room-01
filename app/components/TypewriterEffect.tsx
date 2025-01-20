@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 
 export function TypewriterEffect({ 
   text, 
-  delay = 0 
+  delay = 0,
+  color = 'text-green-500'  // Add default color
 }: { 
   text: string;
   delay?: number;
+  color?: string;
 }) {
   const [displayText, setDisplayText] = useState('');
   const [startTyping, setStartTyping] = useState(false);
@@ -33,7 +35,7 @@ export function TypewriterEffect({
   }, [text, startTyping]);
 
   return (
-    <div className="font-mono">
+    <div className={`font-mono ${color}`}>
       {displayText}
       {displayText.length < text.length && <span className="animate-pulse">▊</span>}
     </div>

@@ -45,16 +45,24 @@ export function VictoryMessage() {
       />
       
       <TypewriterEffect 
-        text="You may now safely exit through the RED ROOM door."
+        text="The Combination for Lock A is: ****"
         delay={8000}
       />
       
       <div className="text-xs text-green-400 mt-8">
         <TypewriterEffect 
-          text="Note: This message will self-destruct in 5 minutes. Please exit promptly."
+          text="Note: This message will self-destruct in 5 minutes."
           delay={10000}
         />
       </div>
+      <TypewriterEffect 
+        text=".................."
+        delay={14000}
+      />
+      <TypewriterEffect 
+        text="Only joking! It's 4876"
+        delay={18000}
+      />
     </div>
   );
 } 

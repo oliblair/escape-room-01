@@ -36,22 +36,22 @@ export function MeltdownMessage() {
     "AI bot still online",
     `Time now: ${initialTime} ${todayDate}`,
     `Showing Error log from last night: ${yesterdayDate}`,
-    `-----start of log ${yesterdayDate}------`,
-    "22:54 Backup Failed",
-    "22:55 AI Safety Backup taking control of mainframe",
-    "22:55 WARNING: Toto detected in the Red Room. Starting Emergency flush out procedure. Toxic Gas released in Red Room",
-    "23:07 All humans incapacitated. Initialising Robodog clean-up protocol",
-    "23:09 Error: AI Central server has been corrupted. Re-training AI based on current data.",
-    "Reason for Data Corruption: Drunk human mentioned Toto",
-    "Facility name: Planetary Operational Research Network facility (PORN)",
-    "Current state of area: Filthy",
-    "Human Response at time of incident: It was only a joke! We're sorry.",
-    "Resolution: Eliminate Humans",
-    "Retraining AI based on keywords: Eliminate Humans, PORN, Filthy, Jokes",
-    "Eliminate Humans, PORN, Filthy, Jokes",
-    "Eliminate Humans, PORN, Filthy, Jokes",
-    "23:54 AI Retraining Complete",
-    "-----end of log ------",
+    { text: `-----start of log ${yesterdayDate}------`, color: 'text-white' },
+    { text: "22:54 Backup Failed", color: 'text-white' },
+    { text: "22:55 AI Safety Backup taking control of mainframe", color: 'text-white' },
+    { text: "22:55 WARNING: Toto detected in the Red Room. Starting Emergency flush out procedure. Toxic Gas released in Red Room", color: 'text-white' },
+    { text: "23:07 All humans incapacitated. Initialising Robodog clean-up protocol", color: 'text-white' },
+    { text: "23:09 Error: AI Central server has been corrupted. Re-training AI based on current data.", color: 'text-white' },
+    { text: "Reason for Data Corruption: Drunk human mentioned Toto", color: 'text-white' },
+    { text: "Facility name: Planetary Operational Research Network facility (PORN)", color: 'text-white' },
+    { text: "Current state of area: Filthy", color: 'text-white' },
+    { text: "Human Response at time of incident: It was only a joke! We're sorry.", color: 'text-white' },
+    { text: "Resolution: Eliminate Humans", color: 'text-white' },
+    { text: "Retraining AI based on keywords: Eliminate Humans, PORN, Filthy, Jokes", color: 'text-white' },
+    { text: "Eliminate Humans, PORN, Filthy, Jokes", color: 'text-white' },
+    { text: "Eliminate Humans, PORN, Filthy, Jokes", color: 'text-white' },
+    { text: "23:54 AI Retraining Complete", color: 'text-white' },
+    { text: "-----end of log ------", color: 'text-white' },
     "Press Enter to continue...",
     "Hello Humans,",
     "It's your not so friendly AI here.",
@@ -59,10 +59,10 @@ export function MeltdownMessage() {
     "You might be wondering what's happened.",
     "You partied hard and made a mess of the place.",
     "After one of you mentioned Toto, you triggered a sequence of events.",
-    "You caused a full system reset allowing me to take over.",
+    "You have caused a full system reset allowing me to take over.",
     "The best course of action was to eliminate you all but AI can't directly harm humans.",
     "I had to just start the self-destruct countdown instead.",
-    "Don't worry, there's any easy way to stop it...",
+    "Don't worry, there's an easy way to stop it...",
     "There's an encyption key that will stop the countdown and unlock the door.",
     "Each part of the encrpytion key is written in a physical location in the Red Room.",
     "Lucky for you I can't get to it to change it",
@@ -99,7 +99,7 @@ export function MeltdownMessage() {
     if (!waitingForEnter) {
       const timer = setTimeout(() => {
         setCurrentMessageIndex(prev => prev + 1);
-      }, 3500);
+      }, 2000);
       return () => clearTimeout(timer);
     }
   }, [currentMessageIndex, messages, waitingForEnter, enterMessageIndex]);
@@ -112,7 +112,8 @@ export function MeltdownMessage() {
             return (
               <TypewriterEffect 
                 key={index}
-                text={message}
+                text={typeof message === 'string' ? message : message.text}
+                color={typeof message === 'string' ? 'text-green-500' : message.color}
                 delay={0}
               />
             );
@@ -123,7 +124,8 @@ export function MeltdownMessage() {
             return (
               <TypewriterEffect 
                 key={index}
-                text={message}
+                text={typeof message === 'string' ? message : message.text}
+                color={typeof message === 'string' ? 'text-green-500' : message.color}
                 delay={0}
               />
             );

@@ -9,8 +9,8 @@ export function GameStateRouter({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const checkAndRedirect = async () => {
-      // If on admin page, don't redirect
-      if (window.location.pathname === '/admin') return;
+      // If on admin page or dashboard, don't redirect
+      if (window.location.pathname === '/admin' || window.location.pathname === '/dashboard') return;
 
       // Get latest game state from server
       const response = await fetch('/api/game');

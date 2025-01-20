@@ -5,6 +5,7 @@ import { GameProvider } from "@/app/context/GameContext";
 import { GameStateRouter } from "@/app/components/GameStateRouter";
 import { CountdownTimer } from "@/app/components/CountdownTimer";
 import { UserMessage } from "@/app/components/UserMessage";
+import { FullscreenWrapper } from "@/app/components/FullscreenWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,9 +34,11 @@ export default function RootLayout({
       >
         <GameProvider>
           <GameStateRouter>
-            <CountdownTimer />
-            <UserMessage />
-            {children}
+            <FullscreenWrapper>
+              <CountdownTimer />
+              <UserMessage />
+              {children}
+            </FullscreenWrapper>
           </GameStateRouter>
         </GameProvider>
       </body>
