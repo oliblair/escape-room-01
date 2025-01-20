@@ -27,7 +27,8 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         encryptionCode: [],
         timeRemaining: 3600,
         isComplete: false,
-        adminMessage: null
+        adminMessage: null,
+        showAd: false
       };
     case 'CHECK_CODE':
       return {
@@ -47,6 +48,10 @@ function gameReducer(state: GameState, action: GameAction): GameState {
       return { ...state, adminMessage: action.payload as string };
     case 'CLEAR_MESSAGE':
       return { ...state, adminMessage: null };
+    case 'SET_AD':
+      return { ...state, showAd: action.payload };
+    case 'CLOSE_AD':
+      return { ...state, showAd: false };
     default:
       return state;
   }
@@ -59,7 +64,8 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
     encryptionCode: [],
     timeRemaining: 3600,
     isComplete: false,
-    adminMessage: null
+    adminMessage: null,
+    showAd: false
   });
 
   useEffect(() => {

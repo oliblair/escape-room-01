@@ -51,7 +51,7 @@ export function CountdownTimer() {
   if (!state.isStarted) return null;
 
   return (
-    <div className="fixed top-0 left-0 right-0 bg-red-500/20 text-red-500 p-2 text-center font-bold">
+    <div className="fixed top-0 left-0 right-0 bg-red-500/20 text-red-500 p-2 text-center font-bold z-50">
       EMERGENCY PROTOCOL ACTIVATED - Time remaining: {Math.floor(state.timeRemaining / 60)}:{(state.timeRemaining % 60).toString().padStart(2, '0')}
     </div>
   );

@@ -41,7 +41,8 @@ export function AdminControls() {
       timeRemaining: state.timeRemaining,
       currentStage: 0,
       isComplete: false,
-      adminMessage: null
+      adminMessage: null,
+      showAd: false
     };
 
     await fetch('/api/game', {
@@ -209,6 +210,25 @@ export function AdminControls() {
               Send Message
             </button>
           </div>
+        </div>
+
+        <div className="border border-green-500/30 rounded p-4">
+          <h2 className="text-lg font-bold mb-2">Video Ad Control</h2>
+          <button
+            onClick={async () => {
+              await fetch('/api/game', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                  action: 'CLOSE_AD'
+                })
+              });
+              dispatch({ type: 'CLOSE_AD' });
+            }}
+            className="bg-red-500 text-black px-4 py-2 rounded hover:bg-red-400 w-full"
+          >
+            Force Close Video Ad
+          </button>
         </div>
       </div>
     </div>

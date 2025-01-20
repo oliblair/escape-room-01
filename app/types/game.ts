@@ -5,21 +5,16 @@ export interface GameState {
   timeRemaining: number;
   isComplete: boolean;
   adminMessage: string | null;
+  showAd: boolean;
 }
 
-type GamePayload = {
-  'START_GAME': GameState;
-  'SET_CODE': string[];
-  'CHECK_CODE': string;
-  'NEXT_STAGE': number;
-  'UPDATE_TIME': number;
-  'RESET_GAME': void;
-  'JUMP_TO_STAGE': number;
-  'SET_MESSAGE': string | null;
-  'CLEAR_MESSAGE': void;
-}
-
-export interface GameAction {
-  type: keyof GamePayload;
-  payload?: GamePayload[keyof GamePayload];
-} 
+export type GameAction = 
+  | { type: 'START_GAME'; payload: string[] | GameState }
+  | { type: 'RESET_GAME' }
+  | { type: 'CHECK_CODE'; payload: string }
+  | { type: 'UPDATE_TIME'; payload: number }
+  | { type: 'JUMP_TO_STAGE'; payload: number }
+  | { type: 'SET_MESSAGE'; payload: string }
+  | { type: 'CLEAR_MESSAGE' }
+  | { type: 'SET_AD'; payload: boolean }
+  | { type: 'CLOSE_AD' };

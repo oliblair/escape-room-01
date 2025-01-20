@@ -7,7 +7,8 @@ let gameState: GameState = {
   encryptionCode: ['4e', '8s', 's3', '8s', 's5', '5s', '89', 'am'],
   timeRemaining: 3600, // 1 hour in seconds
   isComplete: false,
-  adminMessage: null
+  adminMessage: null,
+  showAd: false
 };
 
 export async function GET() {
@@ -38,7 +39,8 @@ export async function POST(request: Request) {
         encryptionCode: gameState.encryptionCode,
         timeRemaining: 3600,
         isComplete: false,
-        adminMessage: null
+        adminMessage: null,
+        showAd: false
       };
       break;
     case 'CHECK_CODE':
@@ -68,6 +70,9 @@ export async function POST(request: Request) {
       break;
     case 'CLEAR_MESSAGE':
       gameState.adminMessage = null;
+      break;
+    case 'CLOSE_AD':
+      gameState.showAd = false;
       break;
   }
 
